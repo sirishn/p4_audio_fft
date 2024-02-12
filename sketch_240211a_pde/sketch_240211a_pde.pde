@@ -108,12 +108,13 @@ void draw() {
     float a=16.0;
     double base=a*(Math.pow(2.0, i));
     int divisions=12;
+    if (base2_grid_linear) { divisions=10;}
     if (base2_grid_china_thai_7tet) {divisions=7;}
     if (base2_grid_arab_24tet) {divisions=24;}
     if (base2_grid_india_tuning_22) {divisions=22;}
     for (int j=1;j<divisions;j++){
       float y =0; //grid line
-      if (base2_grid_linear) { y = j*(float)base/12.0+ (float)base; } //linear spaced
+      if (base2_grid_linear) { y = j*(float)base/10.0+ (float)base; } //linear spaced
       if (base2_grid_equal_temperament) { y = (float)Math.pow(2,j/12.0)* (float)base; }//equal temperament 
       
       //just intonations
