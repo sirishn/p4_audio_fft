@@ -98,7 +98,18 @@ void draw() {
     float a=16.0;
     double base=a*(Math.pow(2.0, i));
     for (int j=1;j<12;j++){
-      float y = j*(float)base/12.0+ (float)base;
+      //float y = j*(float)base/12.0+ (float)base; //linear spaced
+      
+      //float y = (float)Math.pow(2,j/12.0)* (float)base; //equal temperament 
+      
+      //just intonations
+      float[] pythagorean_tuning = {0,90,204,294,408,498,588,702,792,906,996,1110};
+      float[] india_tuning = {0,112,204,316,386,498,590,702,814,884,1018,1088};
+      //float y = (float)base*pythagorean_tuning[j]/1200+(float)base; //pythagorean tuning
+      float y = (float)base*india_tuning[j]/1200+(float)base; //india tuning
+      
+      
+      
       float z = (float)Math.log10(y/a) / (float)Math.log10(2);
       float x = (float)z*width/10.0;
       line((float)x,0.0,(float)x,(float)height);
