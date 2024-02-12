@@ -23,7 +23,6 @@ boolean base2_grid_arab_24tet=false;
 boolean base2_grid_india_tuning_22=false;
 
 
-
 PFont f;
 //textFont(f,36);
 
@@ -190,6 +189,29 @@ endShape();
     //spectrum_window_lin[i]=0;
     spectrum_window_log[i]=0;
   }
+  
+  if (keyPressed){
+  if (key == '0' ||key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8'){
+    
+    base10_grid = false; //frequency
+    base2_grid_linear = false;
 
+    base2_grid_equal_temperament=false; //12 tet notes
+    base2_grid_pythagorean_tuning=false;
+    base2_grid_india_tuning=false;
+    base2_grid_china_thai_7tet=false;
+    base2_grid_arab_24tet=false;
+    base2_grid_india_tuning_22=false;
+    
+    if (key=='1'){ base10_grid = true;}
+    if (key=='2'){ base2_grid_linear=true;}
+    if (key=='3'){ base2_grid_equal_temperament = true;}
+    if (key=='4'){ base2_grid_pythagorean_tuning=true;}
+    if (key=='5'){ base2_grid_india_tuning=true;}
+    if (key=='6'){ base2_grid_china_thai_7tet=true;}
+    if (key=='7'){ base2_grid_arab_24tet=true;}
+    if (key=='8'){ base2_grid_india_tuning_22=true;}
+  }
+  }
 
 }
