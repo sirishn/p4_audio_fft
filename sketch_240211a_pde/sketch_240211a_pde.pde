@@ -5,8 +5,8 @@ AudioIn in;
 int bands = (int)Math.pow(2, 14);
 float[] spectrum = new float[bands];
 
-//float[] spectrum_window_lin = new float[1920];
-float[] spectrum_window_log = new float[1920];
+
+
 
 SinOsc sine;
 
@@ -29,6 +29,7 @@ PFont f;
 void setup() {
   //print("test");
   size(1920,1080);
+  //size(1280,720);
   background(0);
   stroke(255);
   fill(255);
@@ -50,7 +51,7 @@ void setup() {
 
   sine = new SinOsc(this);
   //sine.play();
-  sine.freq(2000);
+  sine.freq(6.18*1000);
   sine.amp(0.7);
   
   f = createFont("Arial",16,true);
@@ -59,6 +60,8 @@ void setup() {
 
 
 void draw() { 
+  float[] spectrum_window_log = new float[width];
+  //float[] spectrum_window_lin = new float[width];
   background(0);
   textFont(f,26);
   stroke(255);
@@ -77,8 +80,6 @@ void draw() {
   stroke(100);
   for (int i=0;i<3;i++){
     
-    //float x = (float)(1.92*Math.pow(10,i));
-    //text(x,width*i/3,100);
     float a=16.384;
     double base=a*(Math.pow(10.0, i));
     for (int j=2;j<10;j++){
@@ -144,9 +145,7 @@ for (int i=0; i<bands; i++){
     spectrum_window_lin[(int)i*width/bands] = spectrum[i] + spectrum_window_lin[(int)i*width/bands];
 }
 */
-  //spectrum_window_log[0] = 0;
-  
- 
+
   spectrum_window_log[0]=spectrum[16];
   for (int i=1; i<width-1; i++){
       float a=16.384;
@@ -172,23 +171,37 @@ for (int i=0; i<bands; i++){
   }
 */
 
-beginShape();
+/*
+beginShape(); // curve slow
 curveVertex(0,height);
 for (int i=0; i<width; i++){
-  curveVertex(i, height - 20*((spectrum_window_log[i]*height))*2);
+  curveVertex(i, height - 20*((spectrum_window_log[i]*height))*3);
 }
 curveVertex(0,height);
 curveVertex(0,height);
 endShape();
+*/
 
+beginShape(); // polygon fast
+for (int i=0; i<width; i++){
 
+  vertex(i, height - 20*((spectrum_window_log[i]*height))*3);
+}
+vertex(0,height);
+endShape();
+
+/*
+  for (int i=0; i<width; i++){
+    line( i, height, i, height - 20*((spectrum_window_log[i]*height))*3 );
+  }
+*/
 
   //printArray(spectrum_window_log);
 
-  for (int i=0; i<width; i++){
+  /*for (int i=0; i<width; i++){
     //spectrum_window_lin[i]=0;
     spectrum_window_log[i]=0;
-  }
+  }*/
   
   if (keyPressed){
   if (key == '0' ||key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8'){

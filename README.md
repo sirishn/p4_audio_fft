@@ -1,4 +1,4 @@
-# p4_audio_fft
+# p4_sound_spectrum
 FFT sound spectrum for processing 4
 
 I wanted to look at a sound spectrum, and the processing 4 fft example was good, but I wanted something a little more
