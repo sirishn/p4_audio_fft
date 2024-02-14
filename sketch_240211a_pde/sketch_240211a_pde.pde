@@ -4,7 +4,7 @@ FFT fft;
 AudioIn in;
 int bands = (int)Math.pow(2, 14);
 float[] spectrum = new float[bands];
-
+int gain = 1;
 
 
 
@@ -185,7 +185,7 @@ endShape();
 beginShape(); // polygon fast
 for (int i=0; i<width; i++){
 
-  vertex(i, height - 20*((spectrum_window_log[i]*height))*3);
+  vertex(i, height - gain*((spectrum_window_log[i]*height)));
 }
 vertex(0,height);
 endShape();
@@ -204,6 +204,13 @@ endShape();
   }*/
   
   if (keyPressed){
+     if (key == CODED) {
+        if (keyCode == UP) {
+          gain += 1;
+        } else if (keyCode == DOWN) {
+          if (gain > 1 ) { gain += -1; }
+        } 
+     }
   if (key == '0' ||key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8'){
     
     base10_grid = false; //frequency
