@@ -28,7 +28,7 @@ PFont f;
 
 void setup() {
   //print("test");
-  size(1920,1080);
+  size(2560,1080);
   //size(1280,720);
   background(0);
   stroke(255);
@@ -123,7 +123,7 @@ void draw() {
       if (base2_grid_pythagorean_tuning) { y = (float)Math.pow(2,pythagorean_tuning[j]/1200.0)*(float)base; }//pythagorean tuning
       if (base2_grid_india_tuning) { y = (float)Math.pow(2,india_tuning[j]/1200.0)*(float)base; }//india tuning
       if (base2_grid_china_thai_7tet) { y = (float)Math.pow(2,j/7.0)* (float)base;} 
-      if (base2_grid_arab_24tet) { y= (float)Math.pow(2,50.0*j/1200)* (float)base;}
+      if (base2_grid_arab_24tet) { y= (float)Math.pow(2,50.0*j/1200)* (float)base; stroke(100/(j%2+1));}
       float[] india_tuning_22 = {0,90,112,182,204,294,316,386,408,498,520,590,612,702,792,814,884,906,996,1018,1088,1110};
       if (base2_grid_india_tuning_22) { y = (float)Math.pow(2,india_tuning_22[j]/1200.0)*(float)base; }//india tuning
       
