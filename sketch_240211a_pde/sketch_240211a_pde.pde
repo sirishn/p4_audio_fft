@@ -51,7 +51,7 @@ void setup() {
 
   sine = new SinOsc(this);
   //sine.play();
-  sine.freq(6.18*1000);
+  sine.freq(1000);
   sine.amp(0.7);
   
   f = createFont("Arial",16,true);
@@ -146,11 +146,30 @@ for (int i=0; i<bands; i++){
 }
 */
 
-  spectrum_window_log[0]=spectrum[16];
-  for (int i=1; i<width-1; i++){
-      float a=16.384;
-      long lower = Math.round(a*(Math.pow(10.0, (i)*3.0/width)));
-      long upper = Math.round(a*(Math.pow(10.0, (i+1)*3.0/width)));
+  spectrum_window_log[0]=spectrum[15];
+  float a=0;
+  long lower=0;
+  long upper=0;
+  
+  for (int i=0; i<width-1; i++){
+      if (base10_grid){
+      a=16.384;
+      lower = Math.round(a*(Math.pow(10.0, (i)*3.0/width)));
+      upper = Math.round(a*(Math.pow(10.0, (i+1)*3.0/width)));
+      }
+      
+      if (base2_grid_linear || base2_grid_equal_temperament || base2_grid_pythagorean_tuning || base2_grid_india_tuning || base2_grid_china_thai_7tet || base2_grid_arab_24tet || base2_grid_india_tuning_22){
+     /*
+      a=16.0;
+      lower = Math.round(a*(Math.pow(2.0, (i)*10.0/width)));
+      upper = Math.round(a*(Math.pow(2.0, (i+1)*10.0/width)));
+      */
+      a=16.384;
+      lower = Math.round(a*(Math.pow(10.0, (i)*3.0/width)));
+      upper = Math.round(a*(Math.pow(10.0, (i+1)*3.0/width)));
+      
+    }
+      
       //print("lower", lower, "upper", upper);
     for (int j=parseInt(lower); j<parseInt(upper); j++){
 
