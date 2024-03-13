@@ -15,16 +15,16 @@ Click in the window first to do anything
 
 ### Numbers 0-7 - different grid lines for scales and tunings
 
-0 - log base 10
-1 - log base 2 
-2 - equal temperament
-3 - pythagorean
-4 - india
-5 - china, thai
-6 - arab
-7 - india 22 notes
+* 0 - log base 10
+* 1 - log base 2 
+* 2 - equal temperament
+* 3 - pythagorean
+* 4 - india
+* 5 - china, thai
+* 6 - arab
+* 7 - india 22 notes
 
 ### Number 8 and 9 pitch reference for log2 and such grids
 
-8 - Powers of 2, C_0 = 16.0 Hz
-9 - A440
+* 8 - Powers of 2, C_0 = 16.0 Hz
+* 9 - A440
