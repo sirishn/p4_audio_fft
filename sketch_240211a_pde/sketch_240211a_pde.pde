@@ -4,7 +4,7 @@ FFT fft;
 AudioIn in;
 int bands = (int)Math.pow(2, 14);
 float[] spectrum = new float[bands];
-int gain = 1;
+int gain = 40*8;
 
 
 
@@ -21,6 +21,8 @@ boolean base2_grid_india_tuning=false;
 boolean base2_grid_china_thai_7tet=false;
 boolean base2_grid_arab_24tet=false;
 boolean base2_grid_india_tuning_22=false;
+
+boolean a440=true;  //a440 tuning true,  c0 16.0 hz false
 
 
 PFont f;
@@ -51,7 +53,7 @@ void setup() {
 
   sine = new SinOsc(this);
   //sine.play();
-  sine.freq(1000);
+  sine.freq(256);
   sine.amp(0.7);
   
   f = createFont("Arial",16,true);
@@ -96,16 +98,18 @@ void draw() {
 //base 2
 
   if (base2_grid_linear || base2_grid_equal_temperament || base2_grid_pythagorean_tuning || base2_grid_india_tuning || base2_grid_china_thai_7tet || base2_grid_arab_24tet || base2_grid_india_tuning_22){
-  for (int i=0;i<=10;i++){
+    float a=16.0;
+    if (a440) {a=16.352;}
+     for (int i=0;i<=10;i++){
     
-      int x = (int)(16*(float)Math.pow(2,i));
+      int x = (int)(a*(float)Math.pow(2,i));
       text(x,width*i/10,100);
       line((float)width*i/10.0,0.0,(float)width*i/10.0,(float)height);
   }
   stroke(100);
   
   for (int i=0;i<=10;i++){
-    float a=16.0;
+    a=16.0;
     double base=a*(Math.pow(2.0, i));
     int divisions=12;
     if (base2_grid_linear) { divisions=10;}
@@ -146,7 +150,7 @@ for (int i=0; i<bands; i++){
 }
 */
 
-  spectrum_window_log[0]=spectrum[15];
+  //spectrum_window_log[0]=spectrum[15];
   float a=0;
   long lower=0;
   long upper=0;
@@ -154,19 +158,20 @@ for (int i=0; i<bands; i++){
   for (int i=0; i<width-1; i++){
       if (base10_grid){
       a=16.384;
-      lower = Math.round(a*(Math.pow(10.0, (i)*3.0/width)));
-      upper = Math.round(a*(Math.pow(10.0, (i+1)*3.0/width)));
+      lower = Math.round((2*bands/44100.0)*a*(Math.pow(10.0, (i)*3.0/width)));
+      upper = Math.round((2*bands/44100.0)*a*(Math.pow(10.0, (i+1)*3.0/width)));
       }
       
       if (base2_grid_linear || base2_grid_equal_temperament || base2_grid_pythagorean_tuning || base2_grid_india_tuning || base2_grid_china_thai_7tet || base2_grid_arab_24tet || base2_grid_india_tuning_22){
-     /*
+     
       a=16.0;
-      lower = Math.round(a*(Math.pow(2.0, (i)*10.0/width)));
-      upper = Math.round(a*(Math.pow(2.0, (i+1)*10.0/width)));
-      */
-      a=16.384;
-      lower = Math.round(a*(Math.pow(10.0, (i)*3.0/width)));
-      upper = Math.round(a*(Math.pow(10.0, (i+1)*3.0/width)));
+      if (a440) { a=16.352; } //c_0=16.352 Hz when a440 standard
+      lower = Math.round((2*bands/44100.0)*a*(Math.pow(2.0, (i)*10.0/width)));
+      upper = Math.round((2*bands/44100.0)*a*(Math.pow(2.0, (i+1)*10.0/width)));
+      
+      //a=16.384;
+      //lower = Math.round(a*(Math.pow(10.0, (i)*3.0/width)));
+      //upper = Math.round(a*(Math.pow(10.0, (i+1)*3.0/width)));
       
     }
       
@@ -230,7 +235,7 @@ endShape();
           if (gain > 1 ) { gain += -1; }
         } 
      }
-  if (key == '0' ||key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' || key == '8'){
+  if (key == '0' || key == '1' || key == '2' || key == '3' || key == '4' || key == '5' || key == '6' || key == '7' ){
     
     base10_grid = false; //frequency
     base2_grid_linear = false;
@@ -242,15 +247,21 @@ endShape();
     base2_grid_arab_24tet=false;
     base2_grid_india_tuning_22=false;
     
-    if (key=='1'){ base10_grid = true;}
-    if (key=='2'){ base2_grid_linear=true;}
-    if (key=='3'){ base2_grid_equal_temperament = true;}
-    if (key=='4'){ base2_grid_pythagorean_tuning=true;}
-    if (key=='5'){ base2_grid_india_tuning=true;}
-    if (key=='6'){ base2_grid_china_thai_7tet=true;}
-    if (key=='7'){ base2_grid_arab_24tet=true;}
-    if (key=='8'){ base2_grid_india_tuning_22=true;}
+    if (key=='0'){ base10_grid = true;}
+    if (key=='1'){ base2_grid_linear=true;}
+    if (key=='2'){ base2_grid_equal_temperament = true;}
+    if (key=='3'){ base2_grid_pythagorean_tuning=true;}
+    if (key=='4'){ base2_grid_india_tuning=true;}
+    if (key=='5'){ base2_grid_china_thai_7tet=true;}
+    if (key=='6'){ base2_grid_arab_24tet=true;}
+    if (key=='7'){ base2_grid_india_tuning_22=true;}
+    
+    
   }
+    if (  key == '8' || key=='9'){ 
+      if (key == '8') { a440=false;}
+      if (key == '9') { a440=true;}
+    }
   }
 
 }
